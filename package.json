@@ -8,8 +8,12 @@
   "scripts": {
     "test": "hardhat test",
     "compile": "hardhat compile",
-    "lint": "eslint . --ext .ts",
-    "format": "prettier --write *.ts"
+    "lint": "yarn lint:ts && yarn lint:sol",
+    "lint:ts": "eslint . --ext .ts",
+    "lint:sol": "eslint . --ext contracts/**/*.sol",
+    "format": "yarn format:ts && yarn format:sol",
+    "format:ts": "prettier --write *.ts",
+    "format:sol": "prettier --write contracts/**/*.sol"
   },
   "dependencies": {
     "@types/mocha": "^9.0.0",
