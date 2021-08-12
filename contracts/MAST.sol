@@ -2,11 +2,9 @@
 pragma solidity ^0.8.0;
 
 import "./libraries/MerkleProof.sol";
-import "./IConditionScript.sol";
+import "./IScript.sol";
 
 contract MAST {
-
-
   bytes32 public immutable conditionsRoot;
 
   // Do all the setup off-chain.
@@ -26,12 +24,26 @@ contract MAST {
       MerkleProof.verify(_proof, conditionsRoot, leaf),
       "Invalid proof."
     );
+    // mark that leaf as claimed?
 
     // Deploy and get the address of the new script
-    IConditionScript scriptDestination = IConditionScript(createContract(_script));
+    IScript scriptDestination = IScript(createContract(_script));
     //  (for now scripts will not accept arguments)
 
-    (address payable[] memory targets, bytes[] memory data) = scriptDestination.spendingCondition();
+    (address[] memory targets, uint[] memory amounts, bytes[] memory data) = scriptDestination.run();
+    require(
+      targets.length == data.length,
+      "Arrays should be of equal length"
+    );
+    require(
+      targets.length == amounts.length,
+      "Arrays should be of equal length"
+    );
+    for (uint256 i = 0; i < targets.length; i++) {
+      // Do not check return values, we don't want any one target to be able to prevent the
+      // completion of a spend.
+      targets[i].call{value: amounts[i]}(data[i]);
+    }
   }
 
 

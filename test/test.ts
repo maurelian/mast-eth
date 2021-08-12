@@ -17,8 +17,8 @@ describe("MAST", function () {
     const mast = await Mast.deploy(hre.ethers.constants.HashZero);
     await mast.deployed();
 
-    expect(
-      await mast.spend(
+    await expect(
+      mast.spend(
         [
           '0x' + '11'.repeat(32),
           '0x' + '22'.repeat(32)
@@ -27,4 +27,8 @@ describe("MAST", function () {
       )
     ).to.be.revertedWith("Invalid proof.")
   });
+
+  it.skip("Should generate a conditions root from a provided set of contracts", async () => {
+
+  })
 });

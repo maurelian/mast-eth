@@ -19,6 +19,12 @@ The instructions include things like:
   any additional calldata to send (ie for spending ERC20s)
 
 
-  To keep things simple, in this case, neither the constructor, nor the target function can take arguments.
-  it's all setup as immutable values in the code.
-  nice and simple.
+To keep things simple, in this case, neither the constructor, nor the target function can take arguments.
+it's all setup as immutable values in the code.
+nice and simple.
+
+**How should conditions be defined?**
+
+Conditions will be defined as simple solidity contracts. Users can write these contracts in the contracts/conditions dir.
+For development and testing purposes, I will put those conditions in the test folder. Thus the merkleizing script should accept
+a target directory containing the conditions.
