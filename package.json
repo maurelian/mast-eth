@@ -16,8 +16,12 @@
     "format:sol": "prettier --write contracts/**/*.sol"
   },
   "dependencies": {
+    "@types/crypto-js": "^4.0.2",
     "@types/mocha": "^9.0.0",
+    "@types/node": "^16.6.1",
+    "crypto-js": "^4.1.1",
     "hardhat": "^2.5.0",
+    "merkletreejs": "^0.2.24",
     "ts-node": "^10.1.0"
   },
   "devDependencies": {

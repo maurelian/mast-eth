@@ -1,34 +1,41 @@
 import hre from "hardhat";
 import { expect } from "chai";
 
-describe("MAST", function () {
+describe("ScriptTree", function () {
   const HashZero = hre.ethers.constants.HashZero;
 
   it("Should return the conditions root hash once deployed", async () => {
-    const Mast = await hre.ethers.getContractFactory("MAST");
-    const mast = await Mast.deploy(hre.ethers.constants.HashZero);
-    await mast.deployed();
+    const ScriptTree = await hre.ethers.getContractFactory("ScriptTree");
+    const scriptTree = await ScriptTree.deploy(hre.ethers.constants.HashZero);
+    await scriptTree.deployed();
 
-    expect(await mast.conditionsRoot()).to.equal(hre.ethers.constants.HashZero);
+    expect(await scriptTree.conditionsRoot()).to.equal(hre.ethers.constants.HashZero);
   });
 
   it("Should fail to spend when provided an invalid proof", async () => {
-    const Mast = await hre.ethers.getContractFactory("MAST");
-    const mast = await Mast.deploy(hre.ethers.constants.HashZero);
-    await mast.deployed();
+    const ScriptTree = await hre.ethers.getContractFactory("ScriptTree");
+    const scriptTree = await ScriptTree.deploy(hre.ethers.constants.HashZero);
+    await scriptTree.deployed();
 
     await expect(
-      mast.spend(
+      scriptTree.spend(
+        '0x' + '11'.repeat(20),
+        20,
+        '0x20',
         [
           '0x' + '11'.repeat(32),
           '0x' + '22'.repeat(32)
         ],
-        '0x' + '33'.repeat(32)
+        '0x' + '33'.repeat(32),
       )
     ).to.be.revertedWith("Invalid proof.")
   });
 
-  it.skip("Should generate a conditions root from a provided set of contracts", async () => {
+  it("Should generate a conditions root from a provided set of contracts", async () => {
+
+  })
+
+  it.skip("Should successfully spend based on a very simple script", async () => {
 
   })
 });
