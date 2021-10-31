@@ -1,5 +1,5 @@
 // runs with `npx hardhat run scripts/sample-script.ts`
-import hre from "hardhat";
+import hre from 'hardhat'
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -10,7 +10,7 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  console.log(process.argv);
+  console.log(process.argv)
   // const Greeter = await hre.ethers.getContractFactory("Greeter");
   // const greeter = await Greeter.deploy("Hello, Hardhat!");
 
@@ -24,6 +24,6 @@ async function main() {
 main()
   .then(() => process.exit(0))
   .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+    console.error(error)
+    process.exit(1)
+  })

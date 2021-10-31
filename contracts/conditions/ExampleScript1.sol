@@ -7,5 +7,7 @@ contract ExampleScript1 is IScript {
   // Include a secret value as a constant to prevent guessing the deployment bytecode for very simple conditions.
   bytes32 constant salt = 'RANDOM_SALT';
 
-  function run() external override returns (bool) {}
+  function run() external override returns (bool) {
+    return true;
+  }
 }
