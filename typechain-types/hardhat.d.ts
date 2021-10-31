@@ -13,14 +13,21 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
+<<<<<<< HEAD
       name: "ActionState",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ActionState__factory>;
+=======
+      name: "ExampleScript1",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ExampleScript1__factory>;
+>>>>>>> 09bc438 (chore: Add typechain)
     getContractFactory(
       name: "IScript",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IScript__factory>;
     getContractFactory(
+<<<<<<< HEAD
       name: "MerkleProofWrapper",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MerkleProofWrapper__factory>;
@@ -36,11 +43,21 @@ declare module "hardhat/types/runtime" {
       name: "ExampleScript2",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ExampleScript2__factory>;
+=======
+      name: "ScriptTree",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ScriptTree__factory>;
+    getContractFactory(
+      name: "TestScript1",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TestScript1__factory>;
+>>>>>>> 09bc438 (chore: Add typechain)
     getContractFactory(
       name: "Signal",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Signal__factory>;
     getContractFactory(
+<<<<<<< HEAD
       name: "ExampleScript3",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ExampleScript3__factory>;
@@ -54,12 +71,24 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.ActionState>;
+=======
+      name: "TestScript2",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TestScript2__factory>;
+
+    getContractAt(
+      name: "ExampleScript1",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ExampleScript1>;
+>>>>>>> 09bc438 (chore: Add typechain)
     getContractAt(
       name: "IScript",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.IScript>;
     getContractAt(
+<<<<<<< HEAD
       name: "MerkleProofWrapper",
       address: string,
       signer?: ethers.Signer
@@ -79,12 +108,24 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.ExampleScript2>;
+=======
+      name: "ScriptTree",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ScriptTree>;
+    getContractAt(
+      name: "TestScript1",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.TestScript1>;
+>>>>>>> 09bc438 (chore: Add typechain)
     getContractAt(
       name: "Signal",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Signal>;
     getContractAt(
+<<<<<<< HEAD
       name: "ExampleScript3",
       address: string,
       signer?: ethers.Signer
@@ -94,6 +135,12 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.ScriptTree>;
+=======
+      name: "TestScript2",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.TestScript2>;
+>>>>>>> 09bc438 (chore: Add typechain)
 
     // default types
     getContractFactory(

@@ -27,9 +27,12 @@ import type {
 export interface ScriptTreeInterface extends ethers.utils.Interface {
   functions: {
     "conditionsRoot()": FunctionFragment;
+<<<<<<< HEAD
     "lastAction()": FunctionFragment;
     "numActions()": FunctionFragment;
     "pendingAction()": FunctionFragment;
+=======
+>>>>>>> 09bc438 (chore: Add typechain)
     "spend(address,uint256,bytes,bytes,bytes32[])": FunctionFragment;
   };
 
@@ -38,6 +41,7 @@ export interface ScriptTreeInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+<<<<<<< HEAD
     functionFragment: "lastAction",
     values?: undefined
   ): string;
@@ -50,6 +54,8 @@ export interface ScriptTreeInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+=======
+>>>>>>> 09bc438 (chore: Add typechain)
     functionFragment: "spend",
     values: [string, BigNumberish, BytesLike, BytesLike, BytesLike[]]
   ): string;
@@ -58,6 +64,7 @@ export interface ScriptTreeInterface extends ethers.utils.Interface {
     functionFragment: "conditionsRoot",
     data: BytesLike
   ): Result;
+<<<<<<< HEAD
   decodeFunctionResult(functionFragment: "lastAction", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "numActions", data: BytesLike): Result;
   decodeFunctionResult(
@@ -80,6 +87,13 @@ export type ScriptSpentEvent = TypedEvent<
 
 export type ScriptSpentEventFilter = TypedEventFilter<ScriptSpentEvent>;
 
+=======
+  decodeFunctionResult(functionFragment: "spend", data: BytesLike): Result;
+
+  events: {};
+}
+
+>>>>>>> 09bc438 (chore: Add typechain)
 export interface ScriptTree extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
@@ -109,6 +123,7 @@ export interface ScriptTree extends BaseContract {
   functions: {
     conditionsRoot(overrides?: CallOverrides): Promise<[string]>;
 
+<<<<<<< HEAD
     lastAction(
       overrides?: CallOverrides
     ): Promise<
@@ -133,6 +148,8 @@ export interface ScriptTree extends BaseContract {
       }
     >;
 
+=======
+>>>>>>> 09bc438 (chore: Add typechain)
     spend(
       _to: string,
       _value: BigNumberish,
@@ -145,6 +162,7 @@ export interface ScriptTree extends BaseContract {
 
   conditionsRoot(overrides?: CallOverrides): Promise<string>;
 
+<<<<<<< HEAD
   lastAction(
     overrides?: CallOverrides
   ): Promise<
@@ -169,6 +187,8 @@ export interface ScriptTree extends BaseContract {
     }
   >;
 
+=======
+>>>>>>> 09bc438 (chore: Add typechain)
   spend(
     _to: string,
     _value: BigNumberish,
@@ -181,6 +201,7 @@ export interface ScriptTree extends BaseContract {
   callStatic: {
     conditionsRoot(overrides?: CallOverrides): Promise<string>;
 
+<<<<<<< HEAD
     lastAction(
       overrides?: CallOverrides
     ): Promise<
@@ -205,6 +226,8 @@ export interface ScriptTree extends BaseContract {
       }
     >;
 
+=======
+>>>>>>> 09bc438 (chore: Add typechain)
     spend(
       _to: string,
       _value: BigNumberish,
@@ -215,6 +238,7 @@ export interface ScriptTree extends BaseContract {
     ): Promise<void>;
   };
 
+<<<<<<< HEAD
   filters: {
     "ScriptSpent(bytes32,address,uint256,bytes)"(
       scriptHash?: BytesLike | null,
@@ -229,16 +253,22 @@ export interface ScriptTree extends BaseContract {
       data?: null
     ): ScriptSpentEventFilter;
   };
+=======
+  filters: {};
+>>>>>>> 09bc438 (chore: Add typechain)
 
   estimateGas: {
     conditionsRoot(overrides?: CallOverrides): Promise<BigNumber>;
 
+<<<<<<< HEAD
     lastAction(overrides?: CallOverrides): Promise<BigNumber>;
 
     numActions(overrides?: CallOverrides): Promise<BigNumber>;
 
     pendingAction(overrides?: CallOverrides): Promise<BigNumber>;
 
+=======
+>>>>>>> 09bc438 (chore: Add typechain)
     spend(
       _to: string,
       _value: BigNumberish,
@@ -252,12 +282,15 @@ export interface ScriptTree extends BaseContract {
   populateTransaction: {
     conditionsRoot(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+<<<<<<< HEAD
     lastAction(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     numActions(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     pendingAction(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+=======
+>>>>>>> 09bc438 (chore: Add typechain)
     spend(
       _to: string,
       _value: BigNumberish,

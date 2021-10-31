@@ -1,21 +1,15 @@
 import { subtask, task } from 'hardhat/config'
-import * as hre from 'hardhat'
+// import * as hre from 'hardhat'
 import '@nomiclabs/hardhat-waffle'
 import { MerkleTree } from 'merkletreejs'
 import SHA256 from 'crypto-js/sha256'
-import * as crypto from 'crypto-js'
 import * as fs from 'fs'
 import * as path from 'path'
+import '@typechain/hardhat'
+import '@nomiclabs/hardhat-ethers'
+import '@nomiclabs/hardhat-waffle'
 
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
-task('accounts', 'Prints the list of accounts', async (args, hre) => {
-  const accounts = await hre.ethers.getSigners()
 
-  for (const account of accounts) {
-    console.log(account.address)
-  }
-})
 
 subtask('mast:getArtifacts', 'A')
   .addVariadicPositionalParam('scripts', 'paths to scripts')
