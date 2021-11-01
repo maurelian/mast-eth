@@ -2,5 +2,5 @@
 pragma solidity ^0.8.0;
 
 interface IScript {
-  function run() external returns(bool);
+  function run() external returns (bool);
 }

@@ -12,8 +12,6 @@ describe('Tasks', function () {
     })
     // This is just checking against a number the scripts generated,
     // good enough for now.
-    expect(tree.getRoot().toString('hex')).to.be.deep.equal(
-      ''
-    )
+    expect(tree.getRoot().toString('hex')).to.be.deep.equal('')
   })
 })

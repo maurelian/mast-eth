@@ -9,8 +9,6 @@ import '@typechain/hardhat'
 import '@nomiclabs/hardhat-ethers'
 import '@nomiclabs/hardhat-waffle'
 
-
-
 /**
  * generateScriptTree
  */
@@ -44,7 +42,6 @@ task('mast:generateScriptTree', 'Generate and print the merkle tree of scripts')
 
     return tree
   })
-
 
 /*
  * getScriptRoot
