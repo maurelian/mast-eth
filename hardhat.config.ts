@@ -22,17 +22,19 @@ subtask(
  * generateScriptTree
  */
 task('mast:generateScriptTree', 'Generate and print the merkle tree of scripts')
-.addVariadicPositionalParam('scripts', 'paths to scripts')
-.setAction(async (taskArgs, hre): Promise<MerkleTree> => {
-  return generateScriptTree(taskArgs.scripts)
-})
-
+  .addVariadicPositionalParam('scripts', 'paths to scripts')
+  .setAction(async (taskArgs, hre): Promise<MerkleTree> => {
+    return generateScriptTree(taskArgs.scripts)
+  })
 
 /**
  * generateProofForScript
  */
-task('mast:generateProofForScript', 'Generate and print the merkle tree of scripts').setAction(async (taskArgs, hre) => {
-  console.log('todo');
+task(
+  'mast:generateProofForScript',
+  'Generate and print the merkle tree of scripts'
+).setAction(async (taskArgs, hre) => {
+  console.log('todo')
 })
 
 /**

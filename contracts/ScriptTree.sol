@@ -5,13 +5,23 @@ import './libraries/MerkleProof.sol';
 import './IScript.sol';
 
 contract ScriptTree {
+  event ScriptSpent(
+    bytes32 indexed scriptHash,
+    address indexed to,
+    uint256 value,
+    bytes data
+  );
+
   bytes32 public immutable conditionsRoot;
   mapping(bytes32 => bool) usedScripts;
 
   // Do all the setup off-chain.
-  constructor(bytes32 _conditionsRoot) {
+  constructor(bytes32 _conditionsRoot) payable {
     conditionsRoot = _conditionsRoot;
   }
+
+  // allow deposits
+  receive() external payable {}
 
   // submit the spending script
   function spend(
@@ -22,14 +32,17 @@ contract ScriptTree {
     bytes32[] calldata _proof
   ) external {
     // verify the inclusion proof on the script
-    bytes32 leaf = keccak256(abi.encode(_script));
-
+    bytes32 leaf = keccak256(_script);
     require(MerkleProof.verify(_proof, conditionsRoot, leaf), 'Invalid proof.');
 
     // Deploy and get the address of the new script.
     address scriptDestination = createContract(_script);
 
-    // For now scripts will not accept arguments.
+    // The script is only called for authorization purposes. We use a delegatecall so that
+    // the script can read internal storage variables from this contract to enable additional
+    // checks before authorizing the spend (ie. time/amount of last spend), though this is not yet
+    // implemented.
+    // For simplicity, scripts will not accept arguments for now.
     (bool success, bytes memory res) = address(scriptDestination).delegatecall(
       abi.encodeWithSignature('run()')
     );
@@ -37,8 +50,9 @@ contract ScriptTree {
     bool valid = abi.decode(res, (bool));
     require(success && valid, 'Script failed');
 
-    // why not do this in the delegate call if that's what we want?
-    // _to.call{value: _value}(_data);
+
+    _to.call{value: _value}(_data);
+    emit ScriptSpent(leaf, _to, _value, _data);
   }
 
   /**

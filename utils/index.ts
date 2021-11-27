@@ -51,5 +51,3 @@ export const getLeafFromScriptPath = (script: string) => {
   const code = getCodeFromScriptPath(script)
   return keccak256(code)
 }
-
-

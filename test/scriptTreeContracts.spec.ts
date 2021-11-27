@@ -2,7 +2,9 @@ import hre from 'hardhat'
 import { expect } from 'chai'
 import { ethers } from 'hardhat'
 import keccak256 from 'keccak256'
+import { Contract, ContractFactory } from 'ethers'
 import { BigNumber } from '@ethersproject/bignumber'
+import sha3 from 'js-sha3'
 import { getCodeFromScriptPath, getLeafFromScriptPath } from '../utils'
 
 const transferAmount = 200
@@ -15,13 +17,20 @@ const dummyInvalidProof = [
 describe('ScriptTree', function () {
   let recipient: string
   before(async () => {
-    recipient = (await ethers.getSigners())[0].address
+    recipient = (await ethers.getSigners())[1].address
+  })
+
+  let ScriptTree: ContractFactory
+  beforeEach(async () => {
+    ScriptTree = await hre.ethers.getContractFactory('ScriptTree')
   })
 
   it('Should return the conditions root hash once deployed', async () => {
-    const randRoot = '0x'+ keccak256(
-      BigNumber.from(Math.floor(Math.random() * 1024)).toHexString()
-    ).toString('hex')
+    const randRoot =
+      '0x' +
+      keccak256(
+        BigNumber.from(Math.floor(Math.random() * 1024)).toHexString()
+      ).toString('hex')
     const scriptTree = await (
       await hre.ethers.getContractFactory('ScriptTree')
     ).deploy(randRoot)
@@ -31,9 +40,10 @@ describe('ScriptTree', function () {
   })
 
   it('Should fail to spend when provided an invalid proof', async () => {
-    const ScriptTree = await hre.ethers.getContractFactory('ScriptTree')
-    const scriptTree = await (
-      await ScriptTree.deploy(hre.ethers.constants.HashZero)
+    let scriptTree = await (
+      await ScriptTree.deploy(hre.ethers.constants.HashZero, {
+        value: 100,
+      })
     ).deployed()
 
     await expect(
@@ -60,13 +70,25 @@ describe('ScriptTree', function () {
     })
     const root = tree.getRoot().toString('hex')
     const code = getCodeFromScriptPath('./contracts/test/TestScript1.sol')
-    const leaf = getLeafFromScriptPath('./contracts/test/TestScript1.sol')
+    const leaf = getLeafFromScriptPath(
+      './contracts/test/TestScript1.sol'
+    ).toString('hex')
     const proof = tree.getHexProof(keccak256(code))
 
+    const scriptTree = await (
+      await ScriptTree.deploy('0x' + root, { value: transferAmount })
+    ).deployed()
+    const tx = await scriptTree.spend(
+      recipient,
+      transferAmount,
+      '0x',
+      code,
+      proof
+    )
 
-    const scriptTree = await (await ScriptTree.deploy('0x' + root)).deployed()
-    await scriptTree.spend(recipient, transferAmount, '0x', code, proof)
-
-    await expect(hre.ethers.provider.getBalance(recipient)).to.be.greaterThan(0)
+    const balAfter = await hre.ethers.provider.getBalance(recipient)
+    await expect(
+      await (balAfter.sub(balBefore)).gt(0)
+    )
   })
 })

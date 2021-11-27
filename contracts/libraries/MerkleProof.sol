@@ -1,6 +1,7 @@
 // File taken from https://github.com/OpenZeppelin/openzeppelin-contracts/blob/3dadd40034961d5ca75fa209a4188b01d7129501/contracts/utils/cryptography/MerkleProof.sol
 // SPDX-License-Identifier: MIT
 
+
 pragma solidity ^0.8.0;
 
 /**
@@ -23,7 +24,8 @@ library MerkleProof {
     bytes32[] memory proof,
     bytes32 root,
     bytes32 leaf
-  ) internal pure returns (bool) {
+    // todo: reset to pure
+  ) internal view returns (bool) {
     bytes32 computedHash = leaf;
 
     for (uint256 i = 0; i < proof.length; i++) {

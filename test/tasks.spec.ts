@@ -3,10 +3,7 @@ import { expect } from 'chai'
 import { MerkleTree } from 'merkletreejs'
 import keccak256 from 'keccak256'
 
-import {
-  getLeafFromScriptPath,
-  getCodeFromScriptPath,
-} from '../utils'
+import { getLeafFromScriptPath, getCodeFromScriptPath } from '../utils'
 
 describe('Tasks', function () {
   it('Should generate the expected root value for a couple scripts', async () => {
@@ -36,15 +33,12 @@ describe('Tasks', function () {
     })
 
     const root = tree.getHexRoot()
-    const leaf = getLeafFromScriptPath(
-      './contracts/test/TestScript1.sol'
-    )
+    const leaf = getLeafFromScriptPath('./contracts/test/TestScript1.sol')
 
     const proof = tree.getHexProof(leaf)
 
     expect(await tree.verify(proof, leaf, root)).to.be.true
   })
-
 
   it('Successfully verifies a valid Merkle proof in Solidity', async function () {
     const merkleProofWrapper = await (
@@ -59,9 +53,7 @@ describe('Tasks', function () {
     })
 
     const root = tree.getHexRoot()
-    const leaf = getLeafFromScriptPath(
-      './contracts/test/TestScript1.sol'
-    )
+    const leaf = getLeafFromScriptPath('./contracts/test/TestScript1.sol')
     const proof = tree.getHexProof(leaf)
 
     expect(await merkleProofWrapper.verify(proof, root, leaf)).to.equal(true)
