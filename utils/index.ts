@@ -1,6 +1,6 @@
 import '@nomiclabs/hardhat-waffle'
 import { MerkleTree } from 'merkletreejs'
-import SHA256 from 'crypto-js/sha256'
+import keccak256 from 'keccak256'
 import * as fs from 'fs'
 import '@typechain/hardhat'
 import '@nomiclabs/hardhat-ethers'
@@ -22,14 +22,34 @@ export const getArtifacts = (paths: string[]): string[] => {
  * generateScriptTree
  * Generate and print the merkle tree of scripts
  */
-export const generateScriptTree = async (scripts: string[]): Promise<MerkleTree> => {
+export const generateScriptTree = (scripts: string[]): MerkleTree => {
   const artifactsPaths = getArtifacts(scripts)
 
-  const codes = artifactsPaths.map(
+  const codeLeaves = artifactsPaths.map(
     (path: string) => JSON.parse(fs.readFileSync(path, 'utf-8')).bytecode
   )
-  const leaves = codes.map((code: string) => SHA256(code))
-  const tree = new MerkleTree(leaves, SHA256)
+
+  const tree = new MerkleTree(codeLeaves, keccak256, {
+    hashLeaves: true,
+    sortPairs: true,
+  })
 
   return tree
 }
+
+export const getCodeFromScriptPath = (script: string) => {
+  const artifactPath = getArtifacts([script])[0]
+  return JSON.parse(fs.readFileSync(artifactPath, 'utf-8')).bytecode
+}
+
+/**
+ * getLeafFromScriptName
+ * Get the 256-bit hash from the leaf corresponding top a given script
+ */
+// @question: what format should it be returned in?
+export const getLeafFromScriptPath = (script: string) => {
+  const code = getCodeFromScriptPath(script)
+  return keccak256(code)
+}
+
+

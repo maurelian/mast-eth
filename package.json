@@ -23,6 +23,7 @@
     "@types/node": "^16.6.1",
     "crypto-js": "^4.1.1",
     "hardhat": "^2.5.0",
+    "keccak256": "^1.0.3",
     "merkletreejs": "^0.2.24",
     "ts-node": "^10.1.0",
     "typechain": "^6.0.2"
