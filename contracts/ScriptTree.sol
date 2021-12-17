@@ -2,18 +2,19 @@
 pragma solidity ^0.8.0;
 
 import './libraries/MerkleProof.sol';
+import './ActionState.sol';
 import './IScript.sol';
 
-contract ScriptTree {
+contract ScriptTree is ActionState {
+  bytes32 public immutable conditionsRoot;
+  mapping(bytes32 => bool) usedScripts;
+
   event ScriptSpent(
     bytes32 indexed scriptHash,
     address indexed to,
     uint256 value,
     bytes data
   );
-
-  bytes32 public immutable conditionsRoot;
-  mapping(bytes32 => bool) usedScripts;
 
   // Do all the setup off-chain.
   constructor(bytes32 _conditionsRoot) payable {
@@ -35,6 +36,8 @@ contract ScriptTree {
     bytes32 leaf = keccak256(_script);
     require(MerkleProof.verify(_proof, conditionsRoot, leaf), 'Invalid proof.');
 
+    pendingAction = Action({to: _to, value: _value, data: _data, timestamp: 0});
+
     // Deploy and get the address of the new script.
     address scriptDestination = createContract(_script);
 
@@ -50,8 +53,11 @@ contract ScriptTree {
     bool valid = abi.decode(res, (bool));
     require(success && valid, 'Script failed');
 
-
     _to.call{value: _value}(_data);
+
+    lastAction = pendingAction;
+    lastAction.timestamp = block.timestamp;
+    delete pendingAction;
     emit ScriptSpent(leaf, _to, _value, _data);
   }
 
