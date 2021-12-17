@@ -7,7 +7,7 @@ interface Signal {
   function yesOrNo() external view returns (bool);
 }
 
-contract TestScript2 is IScript {
+contract ExampleScript2 is IScript {
   // This script returns a boolean based on what it gets from calling anothing contract.
   // You could use this method to bake in a bit of additional flexibility.
   Signal constant signal = Signal(address(0));

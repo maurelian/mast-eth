@@ -64,14 +64,15 @@ describe('ScriptTree', function () {
     const ScriptTree = await hre.ethers.getContractFactory('ScriptTree')
     const tree = await hre.run('mast:generateScriptTree', {
       scripts: [
-        './contracts/test/TestScript1.sol',
-        './contracts/test/TestScript2.sol',
+        './contracts/scripts/ExampleScript1.sol',
+        './contracts/scripts/ExampleScript2.sol',
+        './contracts/scripts/ExampleScript3.sol',
       ],
     })
     const root = tree.getRoot().toString('hex')
-    const code = getCodeFromScriptPath('./contracts/test/TestScript1.sol')
+    const code = getCodeFromScriptPath('./contracts/scripts/ExampleScript1.sol')
     const leaf = getLeafFromScriptPath(
-      './contracts/test/TestScript1.sol'
+      './contracts/scripts/ExampleScript1.sol'
     ).toString('hex')
     const proof = tree.getHexProof(keccak256(code))
 

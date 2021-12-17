@@ -10,8 +10,8 @@ describe('Tasks', function () {
     // we have to define these paths relative to the root dir.
     const tree = await hre.run('mast:generateScriptTree', {
       scripts: [
-        './contracts/test/TestScript1.sol',
-        './contracts/test/TestScript2.sol',
+        './contracts/scripts/ExampleScript1.sol',
+        './contracts/scripts/ExampleScript2.sol',
       ],
     })
     const root = tree.getRoot().toString('hex')
@@ -20,20 +20,20 @@ describe('Tasks', function () {
     // This is just checking against a value the scripts generated previously,
     // good enough for now.
     expect(root).to.be.deep.equal(
-      'b257d674f75f6c3e513f8974f4acc48469e99a28e0e04f33a0994dfe51de9ec7'
+      '0fdef2fe23334d6a0a81007e30045b8b94ca5abe4635f94aef934eafccdd5d56'
     )
   })
 
   it('Successfully verifies a valid Merkle proof in MerkleTreeJs', async () => {
     const tree = await hre.run('mast:generateScriptTree', {
       scripts: [
-        './contracts/test/TestScript1.sol',
-        './contracts/test/TestScript2.sol',
+        './contracts/scripts/ExampleScript1.sol',
+        './contracts/scripts/ExampleScript2.sol',
       ],
     })
 
     const root = tree.getHexRoot()
-    const leaf = getLeafFromScriptPath('./contracts/test/TestScript1.sol')
+    const leaf = getLeafFromScriptPath('./contracts/scripts/ExampleScript1.sol')
 
     const proof = tree.getHexProof(leaf)
 
@@ -47,13 +47,13 @@ describe('Tasks', function () {
 
     const tree = await hre.run('mast:generateScriptTree', {
       scripts: [
-        './contracts/test/TestScript1.sol',
-        './contracts/test/TestScript2.sol',
+        './contracts/scripts/ExampleScript1.sol',
+        './contracts/scripts/ExampleScript2.sol',
       ],
     })
 
     const root = tree.getHexRoot()
-    const leaf = getLeafFromScriptPath('./contracts/test/TestScript1.sol')
+    const leaf = getLeafFromScriptPath('./contracts/scripts/ExampleScript1.sol')
     const proof = tree.getHexProof(leaf)
 
     expect(await merkleProofWrapper.verify(proof, root, leaf)).to.equal(true)
