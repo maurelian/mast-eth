@@ -47,7 +47,7 @@ describe('ScriptTree', function () {
     ).deployed()
 
     await expect(
-      scriptTree.spend(
+      scriptTree.execute(
         recipient,
         transferAmount,
         '0x20',
@@ -79,7 +79,7 @@ describe('ScriptTree', function () {
     const scriptTree = await (
       await ScriptTree.deploy('0x' + root, { value: transferAmount })
     ).deployed()
-    const tx = await scriptTree.spend(
+    const tx = await scriptTree.execute(
       recipient,
       transferAmount,
       '0x',

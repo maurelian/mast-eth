@@ -26,24 +26,24 @@ import type {
 
 export interface ScriptTreeInterface extends ethers.utils.Interface {
   functions: {
+    "execute(address,uint256,bytes,bytes,bytes32[])": FunctionFragment;
     "scriptsRoot()": FunctionFragment;
-    "spend(address,uint256,bytes,bytes,bytes32[])": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "execute",
+    values: [string, BigNumberish, BytesLike, BytesLike, BytesLike[]]
+  ): string;
   encodeFunctionData(
     functionFragment: "scriptsRoot",
     values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "spend",
-    values: [string, BigNumberish, BytesLike, BytesLike, BytesLike[]]
-  ): string;
 
+  decodeFunctionResult(functionFragment: "execute", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "scriptsRoot",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "spend", data: BytesLike): Result;
 
   events: {
     "ScriptSpent(bytes32,address,uint256,bytes)": EventFragment;
@@ -86,9 +86,7 @@ export interface ScriptTree extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    scriptsRoot(overrides?: CallOverrides): Promise<[string]>;
-
-    spend(
+    execute(
       _to: string,
       _value: BigNumberish,
       _data: BytesLike,
@@ -96,11 +94,11 @@ export interface ScriptTree extends BaseContract {
       _proof: BytesLike[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    scriptsRoot(overrides?: CallOverrides): Promise<[string]>;
   };
 
-  scriptsRoot(overrides?: CallOverrides): Promise<string>;
-
-  spend(
+  execute(
     _to: string,
     _value: BigNumberish,
     _data: BytesLike,
@@ -109,10 +107,10 @@ export interface ScriptTree extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  callStatic: {
-    scriptsRoot(overrides?: CallOverrides): Promise<string>;
+  scriptsRoot(overrides?: CallOverrides): Promise<string>;
 
-    spend(
+  callStatic: {
+    execute(
       _to: string,
       _value: BigNumberish,
       _data: BytesLike,
@@ -120,6 +118,8 @@ export interface ScriptTree extends BaseContract {
       _proof: BytesLike[],
       overrides?: CallOverrides
     ): Promise<void>;
+
+    scriptsRoot(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {
@@ -138,9 +138,7 @@ export interface ScriptTree extends BaseContract {
   };
 
   estimateGas: {
-    scriptsRoot(overrides?: CallOverrides): Promise<BigNumber>;
-
-    spend(
+    execute(
       _to: string,
       _value: BigNumberish,
       _data: BytesLike,
@@ -148,12 +146,12 @@ export interface ScriptTree extends BaseContract {
       _proof: BytesLike[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    scriptsRoot(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    scriptsRoot(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    spend(
+    execute(
       _to: string,
       _value: BigNumberish,
       _data: BytesLike,
@@ -161,5 +159,7 @@ export interface ScriptTree extends BaseContract {
       _proof: BytesLike[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    scriptsRoot(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

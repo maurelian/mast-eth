@@ -24,7 +24,7 @@ contract ScriptTree {
   receive() external payable {}
 
   // submit the spending script
-  function spend(
+  function execute(
     address _to,
     uint256 _value,
     bytes calldata _data,
