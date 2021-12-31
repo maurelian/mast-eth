@@ -53,11 +53,16 @@ contract ScriptTree is ActionState {
     bool valid = abi.decode(res, (bool));
     require(success && valid, 'Script failed');
 
+    // run the action:
     _to.call{value: _value}(_data);
 
+    // copy pendingAction to lastAction
     lastAction = pendingAction;
+    // set the timestamp of the last action
     lastAction.timestamp = block.timestamp;
+    // delete the pendingAction
     delete pendingAction;
+
     emit ScriptSpent(leaf, _to, _value, _data);
   }
 

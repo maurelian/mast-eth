@@ -88,8 +88,6 @@ describe('ScriptTree', function () {
     )
 
     const balAfter = await hre.ethers.provider.getBalance(recipient)
-    await expect(
-      await (balAfter.sub(balBefore)).gt(0)
-    )
+    await expect(await balAfter.sub(balBefore).gt(0))
   })
 })
