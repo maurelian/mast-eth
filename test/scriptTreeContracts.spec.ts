@@ -36,7 +36,7 @@ describe('ScriptTree', function () {
     ).deploy(randRoot)
     await scriptTree.deployed()
 
-    expect(await scriptTree.conditionsRoot()).to.equal(randRoot)
+    expect(await scriptTree.scriptsRoot()).to.equal(randRoot)
   })
 
   it('Should fail to spend when provided an invalid proof', async () => {

@@ -5,7 +5,7 @@ import './libraries/MerkleProof.sol';
 import './IScript.sol';
 
 contract ScriptTree {
-  bytes32 public immutable conditionsRoot;
+  bytes32 public immutable scriptsRoot;
   mapping(bytes32 => bool) spentScripts;
 
   event ScriptSpent(
@@ -16,8 +16,8 @@ contract ScriptTree {
   );
 
   // Do all the setup off-chain.
-  constructor(bytes32 _conditionsRoot) payable {
-    conditionsRoot = _conditionsRoot;
+  constructor(bytes32 _scriptsRoot) payable {
+    scriptsRoot = _scriptsRoot;
   }
 
   // allow deposits
@@ -34,7 +34,7 @@ contract ScriptTree {
     // verify the inclusion proof on the script
     bytes32 leaf = keccak256(_script);
     require(spentScripts[leaf] != true, 'Script already spent.');
-    require(MerkleProof.verify(_proof, conditionsRoot, leaf), 'Invalid proof.');
+    require(MerkleProof.verify(_proof, scriptsRoot, leaf), 'Invalid proof.');
 
     // Deploy and get the address of the new script.
     address scriptDestination = createContract(_script);

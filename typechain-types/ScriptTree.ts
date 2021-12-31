@@ -26,12 +26,12 @@ import type {
 
 export interface ScriptTreeInterface extends ethers.utils.Interface {
   functions: {
-    "conditionsRoot()": FunctionFragment;
+    "scriptsRoot()": FunctionFragment;
     "spend(address,uint256,bytes,bytes,bytes32[])": FunctionFragment;
   };
 
   encodeFunctionData(
-    functionFragment: "conditionsRoot",
+    functionFragment: "scriptsRoot",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -40,7 +40,7 @@ export interface ScriptTreeInterface extends ethers.utils.Interface {
   ): string;
 
   decodeFunctionResult(
-    functionFragment: "conditionsRoot",
+    functionFragment: "scriptsRoot",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "spend", data: BytesLike): Result;
@@ -86,7 +86,7 @@ export interface ScriptTree extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    conditionsRoot(overrides?: CallOverrides): Promise<[string]>;
+    scriptsRoot(overrides?: CallOverrides): Promise<[string]>;
 
     spend(
       _to: string,
@@ -98,7 +98,7 @@ export interface ScriptTree extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
-  conditionsRoot(overrides?: CallOverrides): Promise<string>;
+  scriptsRoot(overrides?: CallOverrides): Promise<string>;
 
   spend(
     _to: string,
@@ -110,7 +110,7 @@ export interface ScriptTree extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    conditionsRoot(overrides?: CallOverrides): Promise<string>;
+    scriptsRoot(overrides?: CallOverrides): Promise<string>;
 
     spend(
       _to: string,
@@ -138,7 +138,7 @@ export interface ScriptTree extends BaseContract {
   };
 
   estimateGas: {
-    conditionsRoot(overrides?: CallOverrides): Promise<BigNumber>;
+    scriptsRoot(overrides?: CallOverrides): Promise<BigNumber>;
 
     spend(
       _to: string,
@@ -151,7 +151,7 @@ export interface ScriptTree extends BaseContract {
   };
 
   populateTransaction: {
-    conditionsRoot(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    scriptsRoot(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     spend(
       _to: string,

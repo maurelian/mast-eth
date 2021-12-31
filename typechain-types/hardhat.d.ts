@@ -13,10 +13,6 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
-      name: "ExampleScript1",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ExampleScript1__factory>;
-    getContractFactory(
       name: "IScript",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IScript__factory>;
@@ -44,24 +40,7 @@ declare module "hardhat/types/runtime" {
       name: "ScriptTree",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ScriptTree__factory>;
-    getContractFactory(
-      name: "TestScript1",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.TestScript1__factory>;
-    getContractFactory(
-      name: "Signal",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Signal__factory>;
-    getContractFactory(
-      name: "TestScript2",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.TestScript2__factory>;
 
-    getContractAt(
-      name: "ExampleScript1",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ExampleScript1>;
     getContractAt(
       name: "IScript",
       address: string,
@@ -97,21 +76,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.ScriptTree>;
-    getContractAt(
-      name: "TestScript1",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.TestScript1>;
-    getContractAt(
-      name: "Signal",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Signal>;
-    getContractAt(
-      name: "TestScript2",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.TestScript2>;
 
     // default types
     getContractFactory(
