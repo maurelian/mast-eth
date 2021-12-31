@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import './../IScript.sol';
+import '../IScript.sol';
 
 contract ExampleScript3 is IScript {
   // Include a secret value as a constant to prevent guessing the deployment bytecode for very simple conditions.

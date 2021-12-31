@@ -2,12 +2,11 @@
 pragma solidity ^0.8.0;
 
 import './libraries/MerkleProof.sol';
-import './ActionState.sol';
 import './IScript.sol';
 
-contract ScriptTree is ActionState {
+contract ScriptTree {
   bytes32 public immutable conditionsRoot;
-  mapping(bytes32 => bool) usedScripts;
+  mapping(bytes32 => bool) spentScripts;
 
   event ScriptSpent(
     bytes32 indexed scriptHash,
@@ -34,17 +33,12 @@ contract ScriptTree is ActionState {
   ) external {
     // verify the inclusion proof on the script
     bytes32 leaf = keccak256(_script);
+    require(spentScripts[leaf] != true, 'Script already spent.');
     require(MerkleProof.verify(_proof, conditionsRoot, leaf), 'Invalid proof.');
-
-    pendingAction = Action({to: _to, value: _value, data: _data, timestamp: 0});
 
     // Deploy and get the address of the new script.
     address scriptDestination = createContract(_script);
 
-    // The script is only called for authorization purposes. We use a delegatecall so that
-    // the script can read internal storage variables from this contract to enable additional
-    // checks before authorizing the spend (ie. time/amount of last spend), though this is not yet
-    // implemented.
     // For simplicity, scripts will not accept arguments for now.
     (bool success, bytes memory res) = address(scriptDestination).delegatecall(
       abi.encodeWithSignature('run()')
@@ -52,16 +46,7 @@ contract ScriptTree is ActionState {
 
     bool valid = abi.decode(res, (bool));
     require(success && valid, 'Script failed');
-
-    // run the action:
-    _to.call{value: _value}(_data);
-
-    // copy pendingAction to lastAction
-    lastAction = pendingAction;
-    // set the timestamp of the last action
-    lastAction.timestamp = block.timestamp;
-    // delete the pendingAction
-    delete pendingAction;
+    spentScripts[leaf] = true;
 
     emit ScriptSpent(leaf, _to, _value, _data);
   }

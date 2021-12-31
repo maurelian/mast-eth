@@ -13,10 +13,6 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
-      name: "ActionState",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ActionState__factory>;
-    getContractFactory(
       name: "ExampleScript1",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ExampleScript1__factory>;
@@ -28,10 +24,6 @@ declare module "hardhat/types/runtime" {
       name: "MerkleProofWrapper",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MerkleProofWrapper__factory>;
-    getContractFactory(
-      name: "ExampleScriptSpeedBump",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ExampleScriptSpeedBump__factory>;
     getContractFactory(
       name: "ExampleScript1",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -66,11 +58,6 @@ declare module "hardhat/types/runtime" {
     ): Promise<Contracts.TestScript2__factory>;
 
     getContractAt(
-      name: "ActionState",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ActionState>;
-    getContractAt(
       name: "ExampleScript1",
       address: string,
       signer?: ethers.Signer
@@ -85,11 +72,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.MerkleProofWrapper>;
-    getContractAt(
-      name: "ExampleScriptSpeedBump",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ExampleScriptSpeedBump>;
     getContractAt(
       name: "ExampleScript1",
       address: string,
