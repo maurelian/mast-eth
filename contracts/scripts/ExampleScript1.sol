@@ -4,8 +4,12 @@ pragma solidity ^0.8.0;
 import '../IScript.sol';
 
 contract ExampleScript1 is IScript {
-  // This script is quite simple, it just returns true.
-  function run() external pure override returns (bool) {
+  event LogData(bytes);
+
+  // This script is quite simple, it just logs the data it receives with no auth
+  function run(bytes calldata _data) external override returns (bool) {
+    emit LogData(_data);
+
     return true;
   }
 }

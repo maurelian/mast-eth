@@ -20,7 +20,7 @@ describe('Tasks', function () {
     // This is just checking against a value the scripts generated previously,
     // good enough for now.
     expect(root).to.be.deep.equal(
-      '0fdef2fe23334d6a0a81007e30045b8b94ca5abe4635f94aef934eafccdd5d56'
+      'caacc7a5e3143fb97da46af7f198b4e85f7fb35ac52ca3c332e9339270546c5f'
     )
   })
 

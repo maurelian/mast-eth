@@ -39,13 +39,12 @@ contract ScriptTree {
     // Deploy and get the address of the new script.
     address scriptDestination = createContract(_script);
 
-    // For simplicity, scripts will not accept arguments for now.
     (bool success, bytes memory res) = address(scriptDestination).delegatecall(
-      abi.encodeWithSignature('run()')
+      abi.encodeWithSignature('run(bytes)', _data)
     );
 
     bool valid = abi.decode(res, (bool));
-    require(success && valid, 'Script failed');
+    require(valid, 'Script failed');
     spentScripts[leaf] = true;
 
     emit ScriptSpent(leaf, _to, _value, _data);
