@@ -3,13 +3,17 @@ pragma solidity ^0.8.0;
 
 import '../IScript.sol';
 
+// A script that can always be called by a particular account.
 contract ExampleScript2 is IScript {
-  event LogData(bytes);
+  error NotAllowed();
+  event RunCalled();
+  address private constant allowed = 0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF;
 
-  // This script is quite simple, it just logs the data it receives with no auth
-  function run(bytes calldata _data) external override returns (bool) {
-    emit LogData(_data);
-
+  function run(bytes calldata) external override returns (bool) {
+    if (msg.sender != allowed) {
+      revert NotAllowed();
+    }
+    emit RunCalled();
     return true;
   }
 }

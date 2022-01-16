@@ -12,5 +12,6 @@ contract ExampleScript3 is IScript {
   // This script is quite simple, it just logs the data it receives
   function run(bytes calldata _data) external override returns (bool) {
     emit LogData(_data);
+    return true;
   }
 }
